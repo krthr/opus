@@ -1,9 +1,9 @@
-name: opus-cr
+name: opus
 version: 0.1.0
 
 authors:
   - Wilson <wtovaragudelo@gmail.com>
 
-crystal: '>= 1.12.0'
+crystal: ">= 1.12.0"
 
 license: MIT

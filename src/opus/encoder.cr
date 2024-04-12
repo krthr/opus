@@ -16,7 +16,7 @@ module Opus
       LibOpus.opus_encoder_destroy(@encoder)
     end
 
-    def reset : Nil
+    def reset : Void
       LibOpus.encoder_ctl(@encoder, LibOpus::CTL::RESET_STATE)
     end
 

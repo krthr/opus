@@ -1,6 +1,6 @@
-# opus-cr
+# Opus
 
-TODO: Write a description here
+
 
 ## Installation
 
@@ -8,8 +8,8 @@ TODO: Write a description here
 
    ```yaml
    dependencies:
-     opus-cr:
-       github: your-github-user/opus-cr
+     opus:
+       github: krthr/opus
    ```
 
 2. Run `shards install`
@@ -17,18 +17,26 @@ TODO: Write a description here
 ## Usage
 
 ```crystal
-require "opus-cr"
+require "opus"
+
+sample_rate = 48_000
+frame_size = 960
+channels = 2
+
+encoder = Opus::Encoder.new(sample_rate, frame_size, channels)
+
+buffer = Bytes.new(encoder.input_length, 0)
+
+while real_length = audio_data.read(buffer)
+  break if real_length.zero?
+  opus_encoded_data = encoder.encode(buffer)
+  # Use the encoded data
+end
 ```
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/opus-cr/fork>)
+1. Fork it (<https://github.com/krthr/opus/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -36,4 +44,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [Wilson](https://github.com/your-github-user) - creator and maintainer
+- [Wilson](https://github.com/krthr) - creator and maintainer

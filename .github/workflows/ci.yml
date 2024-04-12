@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: latest
+
+      - name: Install linux dependencies
+        run: |
+          sudo apt install libopus-dev
+
+      - name: Download source
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: shards install
+
+      # - name: Run specs
+      #   run: |
+      #     crystal spec
+      #     crystal spec --release --no-debug
+
+      - name: Check formatting
+        run: crystal tool format --check
+
+      - name: Run ameba linter
+        run: bin/ameba
+
+      - name: Build
+        run: |
+          crystal build --progress --time --stats src/opus.cr
